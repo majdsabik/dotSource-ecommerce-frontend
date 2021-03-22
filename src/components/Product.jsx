@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getCart, updateCart } from '../services/cart.js';
 
 export default function Product({ product }) {
+  const [quantity, setQuantity] = useState(1);
+
   async function addToCart() {
     const cart = await getCart();
-    const products = cart.products;
-    products.forEach(product => delete product._id);
+    const products = cart.products.map(product => ({ productId: product.productId, qtd: product.qtd }));
     products.findIndex(el => el.productId === product.id) > -1
-      ? products[products.findIndex(el => el.productId === product.id)].qtd++
-      : products.push({ productId: product.id, qtd: 1 });
+      ? (products[products.findIndex(el => el.productId === product.id)].qtd += +quantity)
+      : products.push({ productId: product.id, qtd: +quantity });
     const newCart = { _id: cart.id, products: products, couponsId: cart.couponsId };
+    console.log(newCart);
     await updateCart(newCart);
   }
+
   return (
     <div
       style={{
@@ -32,6 +35,11 @@ export default function Product({ product }) {
       <h5>
         Description: <small>{product.description}</small>
       </h5>
+      <input
+        value={quantity}
+        type='number'
+        onChange={event => setQuantity(event.target.value)}
+      />
       <button onClick={() => addToCart()}>Add to cart</button>
       <hr />
     </div>
