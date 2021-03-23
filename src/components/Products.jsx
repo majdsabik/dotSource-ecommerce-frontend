@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { getAllProducts } from '../services/product.js';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Product from './Product';
 
-export default function Products() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      const result = await getAllProducts();
-      setProducts(result);
-    }
-    fetchData();
-  }, []);
+export default function Products({ products }) {
   return (
     <div style={{ textAlign: 'center' }}>
-      <h3>List of Available Products</h3>
+      <h3>Available products</h3>
       <hr />
       <div
         style={{
@@ -25,6 +18,9 @@ export default function Products() {
           <Product product={product} key={product.id} />
         ))}
       </div>
+      <Link to='/cart'>
+        <button style={{ marginRight: '10px' }}>View Cart</button>
+      </Link>
     </div>
   );
 }
