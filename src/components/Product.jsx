@@ -7,8 +7,7 @@ export default function Product({ product }) {
   async function addToCart() {
     const cart = await getCart();
 
-    const products = cart.products
-    console.log(cart)
+    const products = cart.products;
 
     products.findIndex(el => el.productId._id === product.id) > -1
       ? (products[products.findIndex(el => el.productId._id === product.id)].qtd += +quantity)
@@ -20,7 +19,7 @@ export default function Product({ product }) {
       couponsId: cart.couponsId,
     };
 
-    //await updateCart(newCart);
+    await updateCart(newCart);
   }
 
   return (
@@ -43,7 +42,7 @@ export default function Product({ product }) {
       <h5>
         Description: <small>{product.description}</small>
       </h5>
-      <input value={quantity} type='number' onChange={event => setQuantity(event.target.value)} />
+      <input value={quantity} type='number' min='1' onChange={event => setQuantity(event.target.value)} />
       <button onClick={() => addToCart()}>Add to cart</button>
       <hr />
     </div>

@@ -46,7 +46,7 @@ export default function Cart() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {!products ? (
+      {!products.length ? (
         <h3>Cart is empty</h3>
       ) : (
         <div>
