@@ -30,6 +30,8 @@ export default function Cart() {
 
       await updateCart(newCart);
       alert('Coupon applied');
+      const final = await getCart();
+      setCart(final)
     } else {
       alert('Coupon is not valid');
     }
