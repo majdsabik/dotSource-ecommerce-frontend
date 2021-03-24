@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getCart, updateCart } from '../services/cart.js';
 
 export default function Product({ product }) {
   const [quantity, setQuantity] = useState(1);
 
   async function addToCart() {
+    if (quantity < 1) {
+      alert('Quantity should be 1 or more');
+      return;
+    }
     const cart = await getCart();
 
     const products = cart.products;
