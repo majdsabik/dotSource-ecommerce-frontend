@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CartProduct({ product, qtd }) {
+export default function CartProduct({ product, qty }) {
   return (
     <div
       style={{
@@ -22,7 +22,7 @@ export default function CartProduct({ product, qtd }) {
         Price: <small>${product.price}</small>
       </h4>
       <h4>
-        Quantity: <small>{qtd}</small>
+        Quantity: <small>{qty}</small>
       </h4>
     </div>
   );
