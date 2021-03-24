@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import Products from './components/Products.jsx';
+import { getAllProducts } from './services/product.js';
+import Cart from './components/Cart.jsx';
 import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 function App() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const result = await getAllProducts();
+      setProducts(result);
+    }
+    fetchData();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Route exact path='/' render={props => <Products products={products} />} />
+      <Route exact path='/cart' component={Cart} />
+    </BrowserRouter>
   );
 }
 
