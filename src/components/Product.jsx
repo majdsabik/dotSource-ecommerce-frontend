@@ -14,13 +14,13 @@ export default function Product({ product }) {
     const products = cart.products;
 
     products.findIndex(el => el.productId._id === product.id) > -1
-      ? (products[products.findIndex(el => el.productId._id === product.id)].qtd += +quantity)
-      : products.push({ productId: product.id, qtd: +quantity });
+      ? (products[products.findIndex(el => el.productId._id === product.id)].qty += +quantity)
+      : products.push({ productId: product.id, qty: +quantity });
 
     const newCart = {
       _id: cart.id,
       products: products,
-      couponsId: cart.couponsId,
+      coupons: cart.coupons,
     };
 
     await updateCart(newCart);

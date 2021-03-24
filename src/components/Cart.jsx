@@ -15,7 +15,7 @@ export default function Cart() {
     if (validated) {
       const cart = await getCart();
 
-      const coupons = cart.couponsId;
+      const coupons = cart.coupons;
       if (coupons.includes(validated.id)) {
         alert('Coupon is already added to this cart');
         return;
@@ -25,13 +25,13 @@ export default function Cart() {
       const newCart = {
         _id: cart.id,
         products: products,
-        couponsId: coupons,
+        coupons: coupons,
       };
 
       await updateCart(newCart);
       alert('Coupon applied');
       const final = await getCart();
-      setCart(final)
+      setCart(final);
     } else {
       alert('Coupon is not valid');
     }
@@ -61,7 +61,7 @@ export default function Cart() {
               justifyContent: 'center',
             }}>
             {products.map((product, index) => (
-              <CartProduct product={product.productId} qtd={product.qtd} key={index} />
+              <CartProduct product={product.productId} qty={product.qty} key={index} />
             ))}
           </div>
           <form onSubmit={handleCoupon}>
